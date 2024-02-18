@@ -1,127 +1,33 @@
 require 'csv'
 
-class NoPromptFound < StandardError
+class MissingPrompt < StandardError
 end
 
 class MatchMaker
 
-  PC_NAMES = ["Korjar", "Obie", "Swam of Wadyr, Trained Carpenter", "Asper (aka: Sunshine, Ass-per, BBG, “the scary one”, yours 😏)"]
+  PC_NAMES = ["Korjar", "Obie", "Swam", "Asper"]
+  EXTENDED_SECTIONS = ["romantic", "friendship", "family"]
   NAME_PROMPT = "How would you like to be called?"
-  QUESTIONS = [
-    {
-      prompt: "You sit down for an enticing card game of Three Dragon Ante. Which deck do you choose?",
-      type: "exact"
-    },
-    {
-      prompt: "If you were to have your own house in Gourd Poggers, what neighborhood would you build in?",
-      type: "exact"
-    },
-    {
-      prompt: "Select 3 for your mood board:",
-      type: "contains"
-    },
-    {
-      prompt: "If you were traveling through Sannas and stopped for their famous fire-red flatbread, what toppings would you choose? (choose none, all or any in between)",
-      type: "flatbread"
-    },
-    {
-      prompt: "Which hatronus is most likely to catch your eye?",
-      type: "exact"
-    },
-    {
-      prompt: "You are suddenly asked to travel with Marshall Margud by Marshall Margud. His eyes quiver as he eagerly awaits your answer. You can't bring yourself to break his heart so you respond affirmatively. How long would you last?",
-      type: "exact"
-    },
-    {
-      prompt: "Scribe Poggers is too strict...",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Peryton]",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Beholder]",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Cranium Rat]",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Owlbear]",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Displacer Beast]",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Gelatinous Cube]",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Tarrasque]",
-      type: "exact"
-    },
-    {
-      prompt: "Rate the following monsters from most to least likely to be found in Mayor Poggers' basement.(1 being most likely and 8 being least. One answer per column!)   [Intellect Devourer]",
-      type: "exact"
-    },
-    {
-      prompt: "Smoking or non-smoking?",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [Smoking-Nonsmoking]"
-    },
-    {
-      prompt: "Shoes in the house: on or off?",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [ShoesOn-ShoesOff]"
-    },
-    {
-      prompt: "Eat with hands or eat with sporks?",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [Hands-Sporks]"
-    },
-    {
-      prompt: "I wanna go...",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [Farwide-Deepnarrow]]"
-    },
-    {
-      prompt: "When I make my bed I...",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [Bed Made-Bed Unmade]"
-    },
-    {
-      prompt: "When you want to visit someone's home but they don't seem to be around to let you in, it is most important to...",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [Doors-Windows]"
-    },
-    {
-      prompt: "PoV:",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [PoV]"
-    },
-    {
-      prompt: "Bite or Bit?",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [Bite-Bit]"
-    },
-    {
-      prompt: "Day or Night?",
-      type: "dealbreaker",
-      dealbreaker_decision: "Dealbreaker? [Day-Night]"
-    },
-  ]
+  
+
+  def verify_questions
+    prompts = @questions.map { |question| question[:prompt]}
+    headers = csv.headers
+    prompts.each do |prompt| 
+      raise MissingPrompt.new "#{prompt}" if !headers.include?(prompt)
+    end
+  end
 
   def csv
     CSV.read("#{Dir.pwd}/app/data/results.csv", headers: true)
   end
 
-  def initialize(name, include_players = false)
+  def initialize(name, include_players = false, include_extended_sections = false)
     @name = name
     @include_players = include_players
+    @include_extended_sections = include_extended_sections
+    @questions = QuestionInfo.new.questions
+    verify_questions
     return self
   end
 
@@ -134,7 +40,7 @@ class MatchMaker
   end
 
   def build_dealbreakers
-    questions = QUESTIONS.select { |question| question[:type] == 'dealbreaker'}
+    questions = @questions.select { |question| question[:type] == 'dealbreaker'}
     return questions.map do |question|
       prompt = question[:prompt]
       quiz[question[:dealbreaker_decision]] == 'Dealbreaker' ? prompt : nil
@@ -145,7 +51,12 @@ class MatchMaker
     @dealbreakers ||= build_dealbreakers
   end
 
-  def inclusions(name)
+  def section_included(section)
+    return true if @include_extended_sections
+    !EXTENDED_SECTIONS.include?(section)
+  end
+
+  def match_included(name)
     return false if name == @name
     return true if @include_players
     !PC_NAMES.include?(name)
@@ -154,7 +65,7 @@ class MatchMaker
   def build_possible_matches
     possible_matches = []
     csv.each_with_index do |row, index|
-      possible_matches << row if inclusions(row[NAME_PROMPT])
+      possible_matches << row if match_included(row[NAME_PROMPT])
     end
     possible_matches
   end
@@ -233,11 +144,10 @@ class MatchMaker
       match_person = MatchMaker.new(possible_match_quiz[NAME_PROMPT])
       score = 0
       puts "-------------------------   #{possible_match_quiz[NAME_PROMPT]}   --------------------------------------"
-      QUESTIONS.each_with_index do |question, index|
+      @questions.each_with_index do |question, index|
         question_score = 0
         prompt = question[:prompt]
-        raise NoPromptFound.new "#{prompt}" if !quiz[prompt] 
-        raise NoPromptFound.new "#{prompt}" if !possible_match_quiz[prompt] 
+        next if !section_included(question[:section])
         question_score += score_dealbreaker(prompt, match_person) if question[:type] == "dealbreaker"
         question_score += score_exact(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "exact"
         question_score += score_contains(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "contains"
