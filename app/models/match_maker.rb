@@ -22,7 +22,7 @@ class MatchMaker
     },
     {
       prompt: "If you were traveling through Sannas and stopped for their famous fire-red flatbread, what toppings would you choose? (choose none, all or any in between)",
-      type: "contains"
+      type: "flatbread"
     },
     {
       prompt: "Which hatronus is most likely to catch your eye?",
@@ -183,6 +183,22 @@ class MatchMaker
     end
   end
 
+  def score_flatbread(a, b)
+    return 0 if !a
+    return 0 if !b
+    score = 0
+    list_one = a.split(',').collect(&:strip)
+    list_two = b.split(',').collect(&:strip)
+    list_one.each do |answer|
+      break if score == 3 
+      score += 1 if list_two.include?(answer) 
+
+    end
+    score += 1 if (list_one.count <= 5 && list_two.count <= 5)
+    score += 1 if (list_one.count >= 10 && list_two.count >= 10)
+    return score
+  end
+
   def score_exact(a, b)
     return 0 if !a
     return 0 if !b
@@ -225,6 +241,7 @@ class MatchMaker
         question_score += score_dealbreaker(prompt, match_person) if question[:type] == "dealbreaker"
         question_score += score_exact(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "exact"
         question_score += score_contains(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "contains"
+        question_score += score_flatbread(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "flatbread"
         puts "#{index + 1}. #{prompt} [ #{question_score} ]"
         score += question_score
       end
