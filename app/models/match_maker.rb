@@ -119,17 +119,14 @@ class MatchMaker
     CSV.read("#{Dir.pwd}/app/data/results.csv", headers: true)
   end
 
-  def initialize(name)
+  def initialize(name, include_players = false)
     @name = name
+    @include_players = include_players
     return self
   end
 
-  def name
-    @name
-  end
-
   def build_quiz
-    csv.select { |row| return row if row[NAME_PROMPT] == name }
+    csv.select { |row| return row if row[NAME_PROMPT] == @name }
   end
 
   def quiz
@@ -148,10 +145,16 @@ class MatchMaker
     @dealbreakers ||= build_dealbreakers
   end
 
+  def inclusions(name)
+    return false if name == @name
+    return true if @include_players
+    !PC_NAMES.include?(name)
+  end
+
   def build_possible_matches
     possible_matches = []
     csv.each_with_index do |row, index|
-      possible_matches << row if index >= 4
+      possible_matches << row if inclusions(row[NAME_PROMPT])
     end
     possible_matches
   end
@@ -213,7 +216,7 @@ class MatchMaker
     return possible_matches.map do |possible_match_quiz|
       match_person = MatchMaker.new(possible_match_quiz[NAME_PROMPT])
       score = 0
-      # puts "-------------------------   #{possible_match_quiz[NAME_PROMPT]}   --------------------------------------"
+      puts "-------------------------   #{possible_match_quiz[NAME_PROMPT]}   --------------------------------------"
       QUESTIONS.each_with_index do |question, index|
         question_score = 0
         prompt = question[:prompt]
@@ -222,12 +225,12 @@ class MatchMaker
         question_score += score_dealbreaker(prompt, match_person) if question[:type] == "dealbreaker"
         question_score += score_exact(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "exact"
         question_score += score_contains(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "contains"
-        # puts "#{index + 1}. #{prompt} [ #{question_score} ]"
+        puts "#{index + 1}. #{prompt} [ #{question_score} ]"
         score += question_score
       end
-      # puts "-------------------------    FINAL: #{score}          --------------------------------------"
-      # puts "  "
-      # puts "  "
+      puts "-------------------------    FINAL: #{score}          --------------------------------------"
+      puts "  "
+      puts "  "
       {match: possible_match_quiz[NAME_PROMPT], score: score}
     end
   end
