@@ -6,10 +6,10 @@ end
 class MatchMaker
 
   PC_NAMES = ["Korjar", "Obie", "Swam", "Asper"]
+  PEOPLE_NAMES = ["Hannah", "Maddo", "Asif", "thewanderer"]
   EXTENDED_SECTIONS = ["romantic", "friendship", "family"]
   NAME_PROMPT = "How would you like to be called?"
   
-
   def verify_questions
     prompts = @questions.map { |question| question[:prompt]}
     headers = csv.headers
@@ -22,9 +22,10 @@ class MatchMaker
     CSV.read("#{Dir.pwd}/app/data/results.csv", headers: true)
   end
 
-  def initialize(name, include_players = false, include_extended_sections = false)
+  def initialize(name, include_pcs = false, include_people = false, include_extended_sections = false)
     @name = name
-    @include_players = include_players
+    @include_pcs = include_pcs
+    @include_people = include_people
     @include_extended_sections = include_extended_sections
     @questions = QuestionInfo.new.questions
     verify_questions
@@ -58,8 +59,10 @@ class MatchMaker
 
   def match_included(name)
     return false if name == @name
-    return true if @include_players
-    !PC_NAMES.include?(name)
+    exclude = []
+    exclude.concat(PC_NAMES) if !@include_pcs
+    exclude.concat(PEOPLE_NAMES) if !@include_people
+    !exclude.include?(name)
   end
 
   def build_possible_matches
@@ -103,7 +106,6 @@ class MatchMaker
     list_one.each do |answer|
       break if score == 3 
       score += 1 if list_two.include?(answer) 
-
     end
     score += 1 if (list_one.count <= 5 && list_two.count <= 5)
     score += 1 if (list_one.count >= 10 && list_two.count >= 10)
