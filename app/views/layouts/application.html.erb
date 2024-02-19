@@ -5,16 +5,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Pacifico&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">    <%= javascript_importmap_tags %>
   </head>
+  
 
-  <body style="overflow:hidden;height:100%;box-sizing:border-box;margin: 0;">
-    <h1 style="margin:0;height:7vh;box-sizing:border-box;">
-      Match Maker Poggers' Match Maker
-    </h1>
-    <div style="height:93vh;display:flex;overflow:auto;box-sizing:border-box;">
+  <body>
+
+    <div class="title">
+    <%= image_tag('matchmaker.png', height: '150', width: '150') %>
+
+      <h1>Match Maker Poggers' Match Maker: the Ferafication</h1>
+    </div>
+    <div style="height:93vh;display:flex;overflow:auto;box-sizing:border-box;padding:32px;">
       <%= yield %>
     </div>
   </body>

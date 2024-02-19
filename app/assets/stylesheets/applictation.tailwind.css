@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components {
+
+  body {
+      font-family: "Architects Daughter", cursive;
+      font-weight: 400;
+      font-style: normal;
+      overflow: hidden;
+      height: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      background-color: #e7d6db;
+  }
+  
+  .title {
+    height: 7vh;
+    background-color: #883249;
+    color: white;
+    box-shadow: 10px 5px 5px grey;
+    position: relative;
+    z-index: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-left: 24px;
+  }
+
+  h1 {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+    margin:0;
+    font-size:28px !important;
+  }
+  
+  
+  label {
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  button {
+    background-color: #883249 !important;
+    color: white !important;
+    padding: 6px 8px !important;
+    font-weight: 500 !important;
+    border-radius: 4px !important;
+    font-family: "Quicksand", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+  }
+
+  button:hover,
+  button:focus { 
+    transform: scale(1.03);
+    transition:transform 1s ease;
+  } 
+  
+  .checkbox {
+    input:checked {
+      background-color: #883249 !important;
+    }
+
+    input:focus {
+      --tw-ring-color: #883249 !important;
+    }
+  }
+
+  .select {
+    select {
+      border-radius: 4px !important; 
+    }
+    select:focus {
+      --tw-ring-color: #883249 !important;
+      border-color: #883249 !important;
+    }
+  }
+
+  .card {
+    background-color: white;
+    padding: 24px;
+    border-radius: 4px;
+    box-shadow: 10px 5px 5px grey;
+  }
+
+  .match {
+    display: flex;
+    gap: 16px;
+    font-size: 18px;
+    margin-bottom: 24px;
+    width: 75%;
+  }
+}
+
+

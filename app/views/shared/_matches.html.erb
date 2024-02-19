@@ -1,11 +1,9 @@
 
-<div>
-  <div>
-    <% @scores.each do |score| %>
-      <div style="display:flex;gap:16px;font-size:18px;padding:4px;">
-        <div style="width:164px;"> <%= score[:match] %> </div>
-        <div>Total score: <%= score[:score] %></div>
-      </div>
-    <% end %>
-  </div>
+<div style="width:100%">
+  <% @scores.each do |score| %>
+    <div class="match card" style="display:flex;justify-content:space-between">
+      <div> <%= score[:match] %> </div>
+      <div>Total score: <%= score[:score] %></div>
+    </div>
+  <% end %>
 </div>
