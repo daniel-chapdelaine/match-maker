@@ -36,6 +36,10 @@ class MatchMaker
     csv.select { |row| return row if row[NAME_PROMPT] == @name }
   end
 
+  def name
+    @name
+  end
+
   def quiz
     @quiz ||= build_quiz
   end
