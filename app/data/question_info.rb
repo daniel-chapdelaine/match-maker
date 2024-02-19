@@ -208,7 +208,7 @@ class QuestionInfo
       },
       {
         prompt: "What best describe your current relationship aspirations?",
-        type: "exact",
+        type: "contains",
         section: "romantic"
       },
       {
@@ -249,7 +249,7 @@ class QuestionInfo
       },
       {
         prompt: "Do you need your own bedroom?",
-        type: "exact",
+        type: "contains",
         section: "family"
       },
       {
@@ -261,7 +261,7 @@ class QuestionInfo
   end
 end
 
-# romance
+# friendship
 # "Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Clean, quiet, curteous]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Rowdy and ready to rumble]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [On the verge of something big]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Trying to get back out there]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Rovin', ramblin', wanderin']","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Starting a new chapter]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [What I am]",
 # How do you fit into the social landscape? [Smoker's Circle],How do you fit into the social landscape? [The Band],How do you fit into the social landscape? [The Dads],How do you fit into the social landscape? [Athletics Club],How do you fit into the social landscape? [Bar Regulars],How do you fit into the social landscape? [Field Hands],How do you fit into the social landscape? [Store Generals],How do you fit into the social landscape? [Thicketers],How do you fit into the social landscape? [Mine Enthusiasts],
 

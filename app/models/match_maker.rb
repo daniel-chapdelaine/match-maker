@@ -31,11 +31,13 @@ class MatchMaker
   end
 
   def initialize(name, include_pcs = false, include_people = false, include_extended_sections = false)
-    @name = name
-    @include_pcs = include_pcs
-    @include_people = include_people
-    @include_extended_sections = include_extended_sections
-    @questions = QuestionInfo.new.questions
+    if name 
+      @name = name
+      @include_pcs = include_pcs
+      @include_people = include_people
+      @include_extended_sections = include_extended_sections
+      @questions = QuestionInfo.new.questions
+    end
     verify_questions
     return self
   end
