@@ -18,6 +18,14 @@ class MatchMaker
     end
   end
 
+  def all_names
+    names = []
+    csv.each_with_index do |row, index|
+      names << row[NAME_PROMPT]
+    end
+    names
+  end
+
   def csv
     CSV.read("#{Dir.pwd}/app/data/results.csv", headers: true)
   end

@@ -1,0 +1,6 @@
+<%= form_with url: "/submit", method: :get do |form| %>
+  <%= form.label :name, "Name:" %>
+  <%= form.select :name, @all_names,  :selected => @name %>
+
+  <%= form.submit "Make my match!" %>
+<% end %>
