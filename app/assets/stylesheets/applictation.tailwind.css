@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
 
   body {
@@ -93,11 +91,44 @@
 
   .match {
     display: flex;
+    flex-direction: column;
     gap: 16px;
     font-size: 18px;
     margin-bottom: 24px;
-    width: 75%;
+    width: 100%;
   }
+
+  .match-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .match-contents {
+    width: 100%;
+    display: flex;
+    gap: 12px;
+  }
+
+  .match-best {
+    display: flex;
+    gap: 8px;
+  }
+
+  .match-show {
+    text-decoration: underline !important;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .match-show:hover,
+  .match-show:focus { 
+    transform: scale(1.09);
+    transition:transform 1s ease;
+  } 
+
 }
 
 

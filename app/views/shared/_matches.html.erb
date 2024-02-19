@@ -1,9 +1,36 @@
 
-<div style="width:100%">
-  <% @scores.each do |score| %>
-    <div class="match card" style="display:flex;justify-content:space-between">
-      <div> <%= score[:match] %> </div>
-      <div>Total score: <%= score[:score] %></div>
+<div id="options" data-controller="visibility" style="width:100%">
+  <% @matches.each_with_index do |match, index| %>
+    <div class="match card">
+      <div class="match-title">
+        <div> <%= match[:name] %> </div>
+        <% if match[:is_best_match] %>
+          <div class="match-best"> 
+            <%= image_tag('cupid-left.png', height: '30', width: '30') %>
+            <div> Best Match! </div>
+            <%= image_tag('cupid-right.png', height: '30', width: '30') %>
+          </div>
+        <% else %>
+          <a 
+            class="match-show"
+            data-action="visibility#toggleTargets" 
+            data-visibility-index-param="<%= index %>" >
+              Show more
+          </a>
+        <% end %>
+        <div>Total match: <%= match[:score] %></div>
+      </div>
+
+      <% if match[:is_best_match] %>
+        <div class="match-contents">
+          <%= render partial: '/shared/match_content' %>
+        </div>
+      <% else %>
+        <div class="match-contents" id="hideable-<%= index %>" data-visibility-target="hideable" hidden>
+          <%= render partial: '/shared/match_content' %>
+        </div>
+      <% end %>
+
     </div>
   <% end %>
 </div>

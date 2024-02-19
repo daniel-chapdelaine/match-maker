@@ -20,8 +20,9 @@ class MatchMakerController < ApplicationController
       @include_extended_sections
     )
     @all_names = matchMaker.all_names
-    @scores = matchMaker.ranked_scores 
+    @matches = matchMaker.ranked_matches 
     render 'submit'
   end
+
 
 end

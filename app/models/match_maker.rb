@@ -145,17 +145,21 @@ class MatchMaker
     return score
   end
 
-  def ranked_scores(limit = nil)
-    ranked = scores.sort! { |a, b|  b[:score] <=> a[:score] }
+  def ranked_matches(limit = nil)
+    ranked = matches.sort! { |a, b|  b[:score] <=> a[:score] }
+    highest_score = ranked.first[:score]
+    ranked.each do |match|
+      match[:is_best_match] = true if match[:score] == highest_score
+    end
     return ranked.slice(0, limit) if limit 
     ranked
   end
 
-  def scores
-    @scores || build_scores
+  def matches
+    @matches || build_matches
   end
 
-  def build_scores
+  def build_matches
     return possible_matches.map do |possible_match_quiz|
       match_person = MatchMaker.new(possible_match_quiz[NAME_PROMPT])
       score = 0
@@ -174,7 +178,11 @@ class MatchMaker
       puts "-------------------------    FINAL: #{score}          --------------------------------------"
       puts "  "
       puts "  "
-      {match: possible_match_quiz[NAME_PROMPT], score: score}
+      {
+        name: possible_match_quiz[NAME_PROMPT],
+        score: score,
+        is_best_match: false,
+      }
     end
   end
 
