@@ -235,6 +235,23 @@
     height: auto;
   }
 
+  .section {
+    padding-bottom:16px;
+    position: relative;
+    margin-right: 4px;
+  }
+
+  .section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black !important;
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+  }
+
 }
 
 
