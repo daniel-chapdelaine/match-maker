@@ -6,7 +6,7 @@ end
 class MatchMaker
 
   PC_NAMES = ["Korjar", "Obie", "Swam", "Asper"]
-  PEOPLE_NAMES = ["Hannah", "Maddo", "Asif", "James", "Sophie"]
+  PEOPLE_NAMES = ["Hannah", "Maddo", "Asif", "James", "Sophie", "Daniel", "Jackie Boy"]
   EXTENDED_SECTIONS = ["Romance", "Friendship", "Family"]
   NAME_PROMPT = "How would you like to be called?"
   MIX_AND_MATCH_PROMPTS = [
