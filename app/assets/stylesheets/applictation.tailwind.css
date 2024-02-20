@@ -102,6 +102,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 20px;
     font-weight: 700;
   }
@@ -127,6 +128,21 @@
   .match-show:focus { 
     transform: scale(1.09);
     transition:transform 1s ease;
+  } 
+
+  .red { 
+    font-size: 28px;
+    color: red;
+  } 
+
+  .orange { 
+    font-size: 28px;
+    color: orange;
+  } 
+
+  .blue { 
+    font-size: 28px;
+    color: blue;
   } 
 
 }

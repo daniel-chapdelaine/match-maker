@@ -15,10 +15,20 @@
             class="match-show"
             data-action="visibility#toggleTargets" 
             data-visibility-index-param="<%= index %>" >
-              Show more
+              Show/Hide Details
           </a>
         <% end %>
-        <div>Total match: <%= match[:score] %></div>
+        <div>
+          Total score: 
+          <% if match[:is_best_match] || match[:score] >= 15 %>
+            <span class="red"><%= match[:score] %></span>
+          <% elsif match[:score] >= 5 %>
+            <span class="orange"><%= match[:score] %></span>
+            <% else %>
+            <span class="blue"><%= match[:score] %></span>
+          <% end %>
+          
+        </div>
       </div>
 
       <% if match[:is_best_match] %>
