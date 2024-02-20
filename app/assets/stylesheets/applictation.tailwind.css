@@ -132,10 +132,22 @@
     font-size: 15px;
     cursor: pointer;
   }
+
+  a {
+    display:block
+  }
  
   a:hover { 
-    color: #ae0557 !important;
+    color: #883249 !important;
+    animation: shaking 0.4s infinite !important;
   } 
+  @keyframes shaking {
+     0% {transform: rotate(0deg);}
+     20% {transform: rotate(-4deg);}
+     50% {transform: rotate(0deg);}
+     70% {transform: rotate(4deg);}
+     100% {transform: rotate(0deg);}
+  }
 
   .warning { 
     color: red;
