@@ -2,7 +2,7 @@ class MatchMakerController < ApplicationController
   def new
     matchMaker = MatchMaker.new('')
     @all_names = matchMaker.all_names
-    @name = @all_names.first
+    @name = ''
     @include_pcs = true
     @include_people = false
     @include_extended_sections = false

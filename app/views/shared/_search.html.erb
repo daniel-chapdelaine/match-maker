@@ -4,7 +4,7 @@
 
       <div class="select">
         <%= form.label :name, "Name:" %>
-        <%= form.select :name, @all_names,  :selected => @name %>
+        <%= form.select :name, @all_names, :include_blank => true ,:selected => @name %>
       </div>
       <div class="checkbox">
         <%= form.label :include_pcs, "Include player characters?" %>
@@ -19,7 +19,7 @@
         <%= form.check_box :include_extended_sections,  :checked => @include_extended_sections %>
       </div>
 
-      <%= button_to "Make me a match!", action: "submit" %>
+      <%= button_to "♫ Match maker, match maker...", action: "submit" %>
     </div>
 
   </div>
