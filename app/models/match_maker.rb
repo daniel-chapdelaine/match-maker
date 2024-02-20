@@ -7,7 +7,7 @@ class MatchMaker
 
   PC_NAMES = ["Korjar", "Obie", "Swam", "Asper"]
   PEOPLE_NAMES = ["Hannah", "Maddo", "Asif", "James", "Sophie"]
-  EXTENDED_SECTIONS = ["romantic", "friendship", "family"]
+  EXTENDED_SECTIONS = ["Romance", "Friendship", "Family"]
   NAME_PROMPT = "How would you like to be called?"
   MIX_AND_MATCH_PROMPTS = [
     'Mix and Match to make a personal ad - "I am [row], looking for [column]" [Clean, quiet, curteous]',
@@ -189,6 +189,23 @@ class MatchMaker
     ranked
   end
 
+  def build_section_details
+    section_details = [{section: "General", details: [], score: 0}]
+    if @include_extended_sections
+      EXTENDED_SECTIONS.each { |section| section_details << {section: section, details: [], score: 0}}
+    end
+    section_details
+  end
+
+  def set_section_details(section_details, details, question_section)
+    section_details.each do |section_detail| 
+      if section_detail[:section] == question_section
+        section_detail[:details] << details
+        section_detail[:score] += details[:score]
+      end
+    end
+  end
+
   def matches
     @matches || build_matches
   end
@@ -197,7 +214,7 @@ class MatchMaker
     return possible_matches.map do |possible_match_quiz|
       match_person = MatchMaker.new(possible_match_quiz[NAME_PROMPT])
       score = 0
-      details = []
+      section_details = build_section_details
       @questions.each_with_index do |question, index|
         question_score = 0
         prompt = question[:prompt]
@@ -207,14 +224,14 @@ class MatchMaker
         question_score += score_contains(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "contains"
         question_score += score_flatbread(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "flatbread"
         question_score += score_mix_and_match(match_person) if question[:type] == "mix_and_match"
-        details << {prompt: prompt, score: question_score}
+        set_section_details(section_details, {prompt: prompt, score: question_score}, question[:section])
         score += question_score
       end
       {
         name: possible_match_quiz[NAME_PROMPT],
         score: score,
         is_best_match: false,
-        details: details
+        section_details: section_details
       }
     end
   end

@@ -2,16 +2,24 @@
   <%= render partial: '/shared/selfie', locals: { name: match[:name] } %>
 </div>
 <div style="overflow:auto;">
-  <div style="font-weight:700;font-size:24px;">Details</div>
-  <% match[:details].each_with_index do |detail, index| %>
-    <div>
-      <%= index + 1 %>.
-      <span style="font-size:14px;">
-        <%= detail[:prompt] %> 
-      </span>
-      <span style="font-weight:700;font-size:23px;">
-        <%= detail[:score] %> 
-      </span>
+  <div style="font-weight:700;font-size:24px;">Section Details</div>
+  <% match[:section_details].each_with_index do |section_detail| %>
+    <div style="padding-bottom:16px;">
+      <div style="display:flex;align-items:center;">
+        <div style="font-weight:700;font-size:22px;text-decoration:underline;"><%= section_detail[:section] %> </div>
+        <div style="font-weight:700;font-size:18px;padding:0 24px;">Section score: <%= section_detail[:score] %> </div>
+      </div>
+      <% section_detail[:details].each_with_index do |detail, index| %>
+        <div>
+          <%= index + 1 %>.
+          <span style="font-size:14px;">
+            <%= detail[:prompt] %> 
+          </span>
+          <span style="font-weight:700;font-size:23px;">
+            <%= detail[:score] %> 
+          </span>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
