@@ -13,7 +13,7 @@
       box-sizing: border-box;
       margin: 0;
       background-color: #e7d6db;
-      scrollbar-color: #883249 #e7d6db;
+      scrollbar-color: #460d29 #e7d6db;
   }
   
   .title {
@@ -150,7 +150,7 @@
   }
 
   .warning { 
-    color: red;
+    color: #883249;
     margin-left: 55px
   } 
 
@@ -228,7 +228,7 @@
   }
 
   img.selfie {
-    border: 5px solid #531b36 !important;
+    border: 5px solid #883249 !important;
     display: block;
     max-height: 300px;
     width: auto;
