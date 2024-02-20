@@ -9,6 +9,11 @@ class MatchMakerController < ApplicationController
   end
 
   def submit
+    if params['name'] == ""
+      flash[:alert] = "Please add a name!"
+      redirect_to root_path
+      return 
+    end
     @name = params['name']
     @include_pcs = params['include_pcs'] == '1'
     @include_people = params['include_people'] == '1'

@@ -139,6 +139,11 @@
     transition:transform 1s ease;
   } 
 
+  .warning { 
+    color: red;
+    margin-left: 55px
+  } 
+
   .red { 
     font-size: 28px;
     color: red;

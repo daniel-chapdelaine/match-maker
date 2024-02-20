@@ -5,6 +5,9 @@
       <div class="select">
         <%= form.label :name, "Name:" %>
         <%= form.select :name, @all_names, :include_blank => true ,:selected => @name %>
+        <% if flash[:alert] %>
+          <div class="warning"><%= flash[:alert] %></div>
+        <% end %>
       </div>
       <div class="checkbox">
         <%= form.label :include_pcs, "Include player characters?" %>
