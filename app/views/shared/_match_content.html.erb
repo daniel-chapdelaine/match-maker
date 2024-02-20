@@ -1,2 +1,17 @@
-<%= image_tag('cupid.png', height: '150', width: '150') %>
-<div>details</div>
+<div>
+  <%= image_tag('cupid.png', height: '300', width: '300') %>
+</div>
+<div style="overflow:auto;">
+  <div style="font-weight:700;font-size:24px;">Details</div>
+  <% match[:details].each_with_index do |detail, index| %>
+    <div>
+      <%= index + 1 %>.
+      <span style="font-size:14px;">
+        <%= detail[:prompt] %> 
+      </span>
+      <span style="font-weight:700;font-size:23px;">
+        <%= detail[:score] %> 
+      </span>
+    </div>
+  <% end %>
+</div>

@@ -3,7 +3,7 @@
   <% @matches.each_with_index do |match, index| %>
     <div class="match card">
       <div class="match-title">
-        <div> <%= match[:name] %> </div>
+        <div class="match-title-name"> <%= match[:name] %> </div>
         <% if match[:is_best_match] %>
           <div class="match-best"> 
             <%= image_tag('cupid-left.png', height: '30', width: '30') %>
@@ -33,11 +33,11 @@
 
       <% if match[:is_best_match] %>
         <div class="match-contents">
-          <%= render partial: '/shared/match_content' %>
+          <%= render partial: '/shared/match_content', locals: { match: match } %>
         </div>
       <% else %>
         <div class="match-contents" id="hideable-<%= index %>" data-visibility-target="hideable" hidden>
-          <%= render partial: '/shared/match_content' %>
+          <%= render partial: '/shared/match_content', locals: { match: match } %>
         </div>
       <% end %>
 

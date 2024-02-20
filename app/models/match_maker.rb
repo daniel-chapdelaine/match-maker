@@ -163,7 +163,7 @@ class MatchMaker
     return possible_matches.map do |possible_match_quiz|
       match_person = MatchMaker.new(possible_match_quiz[NAME_PROMPT])
       score = 0
-      puts "-------------------------   #{possible_match_quiz[NAME_PROMPT]}   --------------------------------------"
+      details = []
       @questions.each_with_index do |question, index|
         question_score = 0
         prompt = question[:prompt]
@@ -172,16 +172,14 @@ class MatchMaker
         question_score += score_exact(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "exact"
         question_score += score_contains(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "contains"
         question_score += score_flatbread(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "flatbread"
-        puts "#{index + 1}. #{prompt} [ #{question_score} ]"
+        details << {prompt: prompt, score: question_score}
         score += question_score
       end
-      puts "-------------------------    FINAL: #{score}          --------------------------------------"
-      puts "  "
-      puts "  "
       {
         name: possible_match_quiz[NAME_PROMPT],
         score: score,
         is_best_match: false,
+        details: details
       }
     end
   end
