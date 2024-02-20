@@ -1,5 +1,5 @@
 
-<div id="options" data-controller="visibility" style="width:100%">
+<div id="options" data-controller="visibility" class="matches-container">
   <% @matches.each_with_index do |match, index| %>
     <div class="match card">
       <div class="match-title">
@@ -58,4 +58,6 @@
 
     </div>
   <% end %>
+  
+  <div style="min-height:12px;color:transparent;">this div allows last cardbottom shadow to show</div>
 </div>

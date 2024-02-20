@@ -2,28 +2,33 @@
 <%= form_with url: "/submit", method: :get do |form| %>
   <div class="search-container">
     <div  class="card search-card">
-      <div>
-        <%= render partial: '/shared/selfie', locals: { name: @name } %>
-      </div>
 
-      <div class="select">
-        <%= form.label :name, "Name:" %>
-        <%= form.select :name, @all_names, :include_blank => true ,:selected => @name %>
-        <% if flash[:alert] %>
-          <div class="warning"><%= flash[:alert] %></div>
-        <% end %>
-      </div>
-      <div class="checkbox">
-        <%= form.label :include_pcs, "Include player characters?" %>
-        <%= form.check_box :include_pcs,  :checked => @include_pcs %>
-      </div>
-      <div class="checkbox">
-        <%= form.label :include_people, "Include people?" %>
-        <%= form.check_box :include_people,  :checked => @include_people %>
-      </div>
-      <div class="checkbox">
-        <%= form.label :include_extended_sections, "Include results from extended sections?" %>
-        <%= form.check_box :include_extended_sections,  :checked => @include_extended_sections %>
+      <div class="search-info">
+        <div class="search-decisions">
+          <div class="select">
+            <%= form.label :name, "Name:" %>
+            <%= form.select :name, @all_names, :include_blank => true ,:selected => @name %>
+            <% if flash[:alert] %>
+              <div class="warning"><%= flash[:alert] %></div>
+            <% end %>
+          </div>
+          <div class="checkbox">
+            <%= form.label :include_pcs, "Include player characters?" %>
+            <%= form.check_box :include_pcs,  :checked => @include_pcs %>
+          </div>
+          <div class="checkbox">
+            <%= form.label :include_people, "Include people?" %>
+            <%= form.check_box :include_people,  :checked => @include_people %>
+          </div>
+          <div class="checkbox">
+            <%= form.label :include_extended_sections, "Include extended sections?" %>
+            <%= form.check_box :include_extended_sections,  :checked => @include_extended_sections %>
+          </div>
+        </div>
+
+        <div>
+          <%= render partial: '/shared/selfie', locals: { name: @name } %>
+        </div>
       </div>
 
       <%= button_to "♫ Match maker, match maker...", action: "submit" %>

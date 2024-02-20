@@ -90,6 +90,14 @@
     box-shadow: 10px 5px 5px grey;
   }
 
+  .matches-container {
+    width:100%;
+    margin-right:32px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .match {
     display: flex;
     flex-direction: column;
@@ -98,6 +106,7 @@
     margin-bottom: 24px;
     width: 100%;
     max-height: 400px;
+    max-width: 750px 
   }
 
   .match-title {
@@ -213,9 +222,8 @@
   } 
 
   .search-container {
-    width:500px;
-    height:100%;
-    position:relative;
+    width: 600px;
+    position: relative;
 
   }
 
@@ -224,7 +232,19 @@
     flex-direction: column;
     gap: 12px;
     position: fixed;
-    width: 450px;
+    width: 550px;
+  }
+
+  .search-info {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .search-decisions {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    min-width: 216px;
   }
 
   img.selfie {
