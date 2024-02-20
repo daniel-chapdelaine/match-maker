@@ -9,11 +9,21 @@ class MatchMaker
   PEOPLE_NAMES = ["Hannah", "Maddo", "Asif", "James", "Sophie"]
   EXTENDED_SECTIONS = ["romantic", "friendship", "family"]
   NAME_PROMPT = "How would you like to be called?"
+  MIX_AND_MATCH_PROMPTS = [
+    'Mix and Match to make a personal ad - "I am [row], looking for [column]" [Clean, quiet, curteous]',
+    'Mix and Match to make a personal ad - "I am [row], looking for [column]" [Rowdy and ready to rumble]',
+    'Mix and Match to make a personal ad - "I am [row], looking for [column]" [On the verge of something big]',
+    'Mix and Match to make a personal ad - "I am [row], looking for [column]" [Trying to get back out there]',
+    'Mix and Match to make a personal ad - "I am [row], looking for [column]" [Rovin\', ramblin\', wanderin\']',
+    'Mix and Match to make a personal ad - "I am [row], looking for [column]" [Starting a new chapter]',
+    'Mix and Match to make a personal ad - "I am [row], looking for [column]" [What I am]',
+  ]
   
   def verify_questions
-    prompts = @questions.map { |question| question[:prompt]}
     headers = csv.headers
-    prompts.each do |prompt| 
+    @questions.each do |question|
+      prompt = question[:prompt]
+      return if question[:ignore_error]
       raise MissingPrompt.new "#{prompt}" if !headers.include?(prompt)
     end
   end
@@ -126,6 +136,30 @@ class MatchMaker
     return score
   end
 
+  def build_mix_and_match_answers_self
+    @mix_and_match_self ||= build_mix_and_match_answers(quiz)
+  end
+
+  def build_mix_and_match_answers(curr_quiz)
+    # one point per uniq answer
+    # one point per giving an answer in the same question
+    final = []
+    MIX_AND_MATCH_PROMPTS.each do |prompt|
+      answer = curr_quiz[prompt]
+      final << answer if answer 
+      final <<  prompt[73..-1] if answer
+    end
+    return final.uniq.compact
+  end
+
+  def score_mix_and_match(match)
+    score = 0
+    mine = build_mix_and_match_answers_self
+    yours = build_mix_and_match_answers(match.quiz)
+    score += score_contains(mine.join(","), yours.join(","))
+    return score
+  end
+
   def score_exact(a, b)
     return 0 if !a
     return 0 if !b
@@ -172,6 +206,7 @@ class MatchMaker
         question_score += score_exact(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "exact"
         question_score += score_contains(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "contains"
         question_score += score_flatbread(quiz[prompt], possible_match_quiz[prompt]) if question[:type] == "flatbread"
+        question_score += score_mix_and_match(match_person) if question[:type] == "mix_and_match"
         details << {prompt: prompt, score: question_score}
         score += question_score
       end

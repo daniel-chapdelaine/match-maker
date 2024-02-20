@@ -234,7 +234,57 @@ class QuestionInfo
         type: "exact",
         section: "friendship"
       },
-
+      {
+        prompt: 'Mix and Match to make a personal ad (Answers Grouped)',
+        type: "mix_and_match",
+        section: "friendship",
+        ignore_error: true
+      },
+      {
+        prompt: "How do you fit into the social landscape? [Smoker's Circle]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [The Band]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [The Dads]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [Athletics Club]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [Bar Regulars]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [Field Hands]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [Store Generals]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [Thicketers]",
+        type: "exact",
+        section: "friendship"
+      },
+      {
+        prompt: "How do you fit into the social landscape? [Mine Enthusiasts]",
+        type: "exact",
+        section: "friendship"
+      },
 
       # ======================== FAMILY ======================================
       {
@@ -257,14 +307,37 @@ class QuestionInfo
         type: "exact",
         section: "family"
       },
+      {
+        prompt: "When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Sante]",
+        type: "exact",
+        section: "family"
+      },
+      {
+        prompt: "When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Poggers]",
+        type: "exact",
+        section: "family"
+      },
+      {
+        prompt: "When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Samira]",
+        type: "exact",
+        section: "family"
+      },
+      {
+        prompt: "When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Bez]",
+        type: "exact",
+        section: "family"
+      },
+      {
+        prompt: "When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Doc]",
+        type: "exact",
+        section: "family"
+      },
+      {
+        prompt: "When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Hanare]",
+        type: "exact",
+        section: "family"
+      },
     ]
   end
 end
-
-# friendship
-# "Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Clean, quiet, curteous]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Rowdy and ready to rumble]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [On the verge of something big]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Trying to get back out there]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Rovin', ramblin', wanderin']","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [Starting a new chapter]","Mix and Match to make a personal ad - ""I am [row], looking for [column]"" [What I am]",
-# How do you fit into the social landscape? [Smoker's Circle],How do you fit into the social landscape? [The Band],How do you fit into the social landscape? [The Dads],How do you fit into the social landscape? [Athletics Club],How do you fit into the social landscape? [Bar Regulars],How do you fit into the social landscape? [Field Hands],How do you fit into the social landscape? [Store Generals],How do you fit into the social landscape? [Thicketers],How do you fit into the social landscape? [Mine Enthusiasts],
-
-# family
-# ,"When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Sante]","When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Poggers]","When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Samira]","When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Bez]","When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Doc]","When seeking guidance from an elder, I consider [insert name from row]... (check all that apply) [Hanare]",
 
