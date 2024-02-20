@@ -132,11 +132,9 @@
     font-size: 15px;
     cursor: pointer;
   }
-
-  .match-show:hover,
-  .match-show:focus { 
-    transform: scale(1.09);
-    transition:transform 1s ease;
+ 
+  a:hover { 
+    color: #ae0557 !important;
   } 
 
   .warning { 
@@ -144,20 +142,86 @@
     margin-left: 55px
   } 
 
-  .red { 
-    font-size: 28px;
-    color: red;
+  .gif { 
+    display: inline-flex;
+    justify-content: center;
+    align-items: end;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
   } 
 
-  .orange { 
-    font-size: 28px;
-    color: orange;
+  .fire { 
+    background-image: url("fire.gif");
+    top: -26px;
+    right: -18px;
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    min-height: 55px;
   } 
 
-  .blue { 
-    font-size: 28px;
-    color: blue;
+  .frog { 
+    background-image: url("frog.gif");
+    top: -7px;
+    right: -12px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
   } 
+
+  .cold { 
+    background-image: url("heart-blue.gif");
+    top: -13px;
+    right: -21px;
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    min-height: 55px;
+  } 
+  
+  .score { 
+    font-size: 22px;
+    color: black;
+    line-height: 1.2;
+    z-index: 4;
+    position: absolute;
+    right: -1px;
+  } 
+  
+  .slender { 
+    right: 5px;
+  } 
+  
+  .total-score { 
+    position: relative;
+    z-index: 4;
+    padding-right: 30px;
+  } 
+
+  .search-container {
+    width:500px;
+    height:100%;
+    position:relative;
+
+  }
+
+  .search-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: fixed;
+    width: 450px;
+  }
+
+  img.selfie {
+    border: 5px solid #531b36 !important;
+    display: block;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+  }
 
 }
 

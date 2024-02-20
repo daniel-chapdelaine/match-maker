@@ -3,7 +3,17 @@
   <% @matches.each_with_index do |match, index| %>
     <div class="match card">
       <div class="match-title">
-        <div class="match-title-name"> <%= match[:name] %> </div>
+        <div class="match-title-name"> 
+          <%= 
+            link_to match[:name], 
+            params: {
+              name: match[:name],
+              include_pcs: @include_pcs ? '1': '0',
+              include_people: @include_people ? '1': '0',
+              include_extended_sections: @include_extended_sections ? '1': '0'
+            }, 
+            action: "submit" %>
+         </div>
         <% if match[:is_best_match] %>
           <div class="match-best"> 
             <%= image_tag('cupid-left.png', height: '30', width: '30') %>
@@ -18,15 +28,20 @@
               Show/Hide Details
           </a>
         <% end %>
-        <div>
-          Total score: 
+        <div style="position:relative">
+          <span class="total-score">Total score: </span>
           <% if match[:is_best_match] || match[:score] >= 15 %>
-            <span class="red"><%= match[:score] %></span>
+            <span class="gif fire"></span>
           <% elsif match[:score] >= 5 %>
-            <span class="orange"><%= match[:score] %></span>
-            <% else %>
-            <span class="blue"><%= match[:score] %></span>
+            <span class="gif frog"></span>
+          <% else %>
+            <span class="gif cold"></span>
           <% end %>
+          <% if match[:score] == -1 || match[:score] == 1 || match[:score] == 11 %>
+            <span class="slender score"><%= match[:score] %></span>
+          <% else %>
+            <span class="score"><%= match[:score] %></span>
+         <% end %>
           
         </div>
       </div>

@@ -1,6 +1,10 @@
+
 <%= form_with url: "/submit", method: :get do |form| %>
-  <div style="width:500px;height:100%;position:relative;">
-    <div  class="card" style="display:flex;flex-direction:column;gap:12px;position:fixed;width:450px;">
+  <div class="search-container">
+    <div  class="card search-card">
+      <div>
+        <%= render partial: '/shared/selfie', locals: { name: @name } %>
+      </div>
 
       <div class="select">
         <%= form.label :name, "Name:" %>

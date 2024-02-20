@@ -6,7 +6,7 @@ end
 class MatchMaker
 
   PC_NAMES = ["Korjar", "Obie", "Swam", "Asper"]
-  PEOPLE_NAMES = ["Hannah", "Maddo", "Asif", "thewanderer"]
+  PEOPLE_NAMES = ["Hannah", "Maddo", "Asif", "James", "Sophie"]
   EXTENDED_SECTIONS = ["romantic", "friendship", "family"]
   NAME_PROMPT = "How would you like to be called?"
   
@@ -23,7 +23,7 @@ class MatchMaker
     csv.each_with_index do |row, index|
       names << row[NAME_PROMPT]
     end
-    names
+    names.sort
   end
 
   def csv

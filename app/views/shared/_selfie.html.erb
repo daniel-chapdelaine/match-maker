@@ -1,0 +1,5 @@
+<% begin %>
+  <%= image_tag("selfies/#{name.downcase}.jpg", class: "selfie") %>
+<% rescue => e %>
+  <%= image_tag('cupid.png', class: "selfie") %>
+<% end %>
