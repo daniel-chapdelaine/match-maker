@@ -3,7 +3,11 @@ require 'benchmark'
 class Superlatives
 
 # build every participant 
-# access highest points pair, lowest points pair, most times first, most times last, most selections made, least selctions
+# most times first, most times last, most selections made, least selctions
+  def initialize
+    @is_best = []
+    @is_worst = []
+  end
 
   # should i pass any params??
   def build(include_pcs = true, include_people = true, include_extended_sections = true)
@@ -15,18 +19,10 @@ class Superlatives
       match_maker.set_match_makers_list(all_match_makers)
       {name: match_maker.name, ranked_matches: match_maker.ranked_matches}  
     end
-    # {
-    #   highest_points_scored: get_highest_points_scored,
-    #   lowest_points_scored: [],
-    #   most_firsts: [],
-    #   most_lasts: [],
-    #   most_selections: [],
-    #   least_selections: [],
-    #   most_fire_selections: [],
-    #   most_ice_selections: []
-    # }
 
-    get_highest_points_scored
+    is_best_and_is_worst
+
+    final
   end
 
   def benchmark_build(include_pcs = true, include_people = true, include_extended_sections = true)
@@ -36,25 +32,61 @@ class Superlatives
     puts time.real
   end
 
+  def final 
+    {
+      highest_points_scored: highest_points_scored,
+      lowest_points_scored: lowest_points_scored,
+      most_firsts: [],
+      most_lasts: [],
+      most_selections: [],
+      least_selections: [],
+      most_fire_selections: [],
+      most_ice_selections: []
+    }
+  end
 
-  def get_highest_points_scored
-    is_best = []
+  def highest_points_scored 
+    get_top_two(@is_best)
+  end
+
+  def lowest_points_scored 
+    get_top_two(@is_worst)
+  end
+
+  def is_best_and_is_worst
     @all_ranked_matches.each do |rankings|
       name = rankings[:name]
       rankings[:ranked_matches].each do |ranked_match| 
-        if ranked_match[:is_best_match]
-          is_best << {winners: [name, ranked_match[:name]], score: ranked_match[:score]}
-        end
+        @is_best << get_score_card(name, ranked_match) if ranked_match[:is_best_match]    
+        @is_worst << get_score_card(name, ranked_match) if ranked_match[:is_worst_match]
       end
     end
-    ranked = is_best.sort! { |a, b|  b[:score] <=> a[:score] }
+    @is_best.sort! { |a, b|  b[:score] <=> a[:score] }
+    @is_worst.sort! { |a, b|  b[:score] <=> a[:score] }.reverse!
+  end
+
+  def get_top_two(ranked)
     top_two = []
     ranked.each do |rank| 
-      break if top_two.count == 2
-      top_two << rank if top_two.first.nil? 
-      top_two << rank if top_two.first[:winners].sort! != rank[:winners].sort!
+      break if top_two.map { |top| top[:score] }.uniq.count == 2
+      if top_two.first.nil? 
+        top_two << rank 
+      else
+        already_added = false
+        top_two.each { |top| already_added = top[:pair].sort! == rank[:pair].sort! }
+        top_two << rank if !already_added
+      end
     end
-    top_two
+    return top_two
+  end 
+
+  def get_score_card(name, match)
+    {
+      name: name,
+      match: match[:name], 
+      pair: [ name, match[:name] ],
+      score: match[:score]
+    }
   end
 
 end

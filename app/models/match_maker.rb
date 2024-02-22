@@ -182,8 +182,10 @@ class MatchMaker
   def ranked_matches(limit = nil)
     ranked = matches.sort! { |a, b|  b[:score] <=> a[:score] }
     highest_score = ranked.first[:score]
+    lowest_score = ranked.last[:score]
     ranked.each do |match|
       match[:is_best_match] = true if match[:score] == highest_score
+      match[:is_worst_match] = true if match[:score] == lowest_score
     end
     return ranked.slice(0, limit) if limit 
     ranked
@@ -231,6 +233,7 @@ class MatchMaker
         name: possible_match_quiz[NAME_PROMPT],
         score: score,
         is_best_match: false,
+        is_worst_match: false,
         section_details: section_details
       }
     end
