@@ -1,0 +1,2 @@
+class SuperlativesController < ApplicationController
+end

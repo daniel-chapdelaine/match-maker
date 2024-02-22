@@ -46,8 +46,8 @@ class MatchMaker
       @include_pcs = include_pcs
       @include_people = include_people
       @include_extended_sections = include_extended_sections
-      @questions = QuestionInfo.new.questions
     end
+    @questions = QuestionInfo.new.questions
     verify_questions
     return self
   end
@@ -212,7 +212,7 @@ class MatchMaker
 
   def build_matches
     return possible_matches.map do |possible_match_quiz|
-      match_person = MatchMaker.new(possible_match_quiz[NAME_PROMPT])
+      match_person = match_makers_list ? get_match_makers(possible_match_quiz[NAME_PROMPT]) : MatchMaker.new(possible_match_quiz[NAME_PROMPT])
       score = 0
       section_details = build_section_details
       @questions.each_with_index do |question, index|
@@ -234,6 +234,23 @@ class MatchMaker
         section_details: section_details
       }
     end
+  end
+
+  def set_match_makers_list(match_makers_list)
+    @match_makers_list = match_makers_list
+  end
+
+  def get_match_makers(name)
+    maker = nil
+    match_makers_list.each do |match_maker|
+      break if maker 
+      maker = match_maker if name == match_maker.name
+    end
+    maker
+  end
+
+  def match_makers_list
+    @match_makers_list
   end
 
 end
