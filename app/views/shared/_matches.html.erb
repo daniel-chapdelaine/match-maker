@@ -30,9 +30,9 @@
         <% end %>
         <div style="position:relative">
           <span class="total-score">Total score: </span>
-          <% if match[:is_best_match] || match[:score] >= 15 %>
+          <% if match[:is_hot] %>
             <span class="gif fire"></span>
-          <% elsif match[:score] >= 5 %>
+          <% elsif match[:is_warm] %>
             <span class="gif frog"></span>
           <% else %>
             <span class="gif cold"></span>

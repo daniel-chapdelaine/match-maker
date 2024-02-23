@@ -5,6 +5,9 @@ class Superlatives
   def initialize
     @is_best = []
     @is_worst = []
+    @is_hot = []
+    @is_warm = []
+    @is_cold = []
   end
 
   # should i pass any params??
@@ -18,7 +21,7 @@ class Superlatives
       {name: match_maker.name, ranked_matches: match_maker.ranked_matches}  
     end
 
-    is_best_and_is_worst
+    sort_rankings
 
     final
   end
@@ -36,9 +39,22 @@ class Superlatives
       lowest_points_scored: lowest_points_scored,
       most_firsts: most_firsts,
       most_lasts: most_lasts,
-      # most_fire_selections: [],
-      # most_ice_selections: []
+      most_hot: most_hot,
+      most_warm: most_warm,
+      most_cold: most_cold,
     }
+  end
+
+  def most_hot
+    most_matches(@is_hot)
+  end
+
+  def most_warm
+    most_matches(@is_warm)
+  end
+
+  def most_cold
+    most_matches(@is_cold)
   end
 
   def most_firsts
@@ -74,15 +90,15 @@ class Superlatives
     return get_top_two_cards(score_cards)
   end
 
-  def is_best_and_is_worst
+  def sort_rankings
     @all_ranked_matches.each do |rankings|
       name = rankings[:name]
       rankings[:ranked_matches].each do |ranked_match| 
         @is_best << get_score_card(name, ranked_match) if ranked_match[:is_best]    
         @is_worst << get_score_card(name, ranked_match) if ranked_match[:is_worst]
-        # @is_hot << get_score_card(name, ranked_match) if ranked_match[:is_hot]
-        # @is_warm << get_score_card(name, ranked_match) if ranked_match[:is_warm]
-        # @is_cold << get_score_card(name, ranked_match) if ranked_match[:is_cold]
+        @is_hot << get_score_card(name, ranked_match) if ranked_match[:is_hot]
+        @is_warm << get_score_card(name, ranked_match) if ranked_match[:is_warm]
+        @is_cold << get_score_card(name, ranked_match) if ranked_match[:is_cold]
       end
     end
     sort(@is_best)

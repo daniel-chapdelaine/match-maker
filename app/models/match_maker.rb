@@ -184,8 +184,15 @@ class MatchMaker
     highest_score = ranked.first[:score]
     lowest_score = ranked.last[:score]
     ranked.each do |match|
-      match[:is_best_match] = true if match[:score] == highest_score
-      match[:is_worst_match] = true if match[:score] == lowest_score
+      match[:is_best] = true if match[:score] == highest_score
+      match[:is_worst] = true if match[:score] == lowest_score
+      if match[:score] >= 15 || match[:is_best]
+        match[:is_hot] = true 
+      elsif match[:score] >= 5
+        match[:is_warm] = true 
+      else
+        match[:is_cold] = true
+      end
     end
     return ranked.slice(0, limit) if limit 
     ranked
@@ -232,8 +239,8 @@ class MatchMaker
       {
         name: possible_match_quiz[NAME_PROMPT],
         score: score,
-        is_best_match: false,
-        is_worst_match: false,
+        is_best: false,
+        is_worst: false,
         section_details: section_details
       }
     end
