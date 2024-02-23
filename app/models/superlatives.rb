@@ -11,9 +11,7 @@ class Superlatives
   end
 
   def build(include_pcs = true, include_people = true, include_extended_sections = true)
-    all_names = MatchMaker.new('').all_names
-
-    names = all_names.map do |name|
+    names = MatchMaker.new('').all_names.map do |name|
       next if MatchMaker::PC_NAMES.include?(name) && !include_pcs
       next if MatchMaker::PEOPLE_NAMES.include?(name) && !include_people
       name
@@ -22,7 +20,7 @@ class Superlatives
     all_match_makers = names.map do |name| 
       MatchMaker.new(name, include_pcs, include_people, include_extended_sections)
     end
-    
+
     @all_ranked_matches = all_match_makers.map do |match_maker| 
       match_maker.set_match_makers_list(all_match_makers)
       {name: match_maker.name, ranked_matches: match_maker.ranked_matches}  
