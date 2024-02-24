@@ -39,15 +39,43 @@ class Superlatives
   end
 
   def final 
-    {
-      highest_points_scored: highest_points_scored,
-      lowest_points_scored: lowest_points_scored,
-      most_firsts: most_firsts,
-      most_lasts: most_lasts,
-      most_hot: most_hot,
-      most_warm: most_warm,
-      most_cold: most_cold,
-    }
+    [
+      {
+        title: 'Highest points scored for one match',
+        score_cards: highest_points_scored,
+        has_pairs: true
+      },
+      {
+        title: 'Lowest points scored for one match',
+        score_cards: lowest_points_scored,
+        has_pairs: true
+      },
+      {
+        title: 'Most firsts across all matches',
+        score_cards: most_firsts,
+        has_pairs: false
+      },
+      {
+        title: 'Most last across all matches',
+        score_cards: most_lasts,
+        has_pairs: false
+      },
+      {
+        title: 'Most hots across all matches',
+        score_cards: most_hot,
+        has_pairs: false
+      },
+      {
+        title: 'Most warms across all matches',
+        score_cards: most_warm,
+        has_pairs: false
+      },
+      {
+        title: 'Most colds across all matches',
+        score_cards: most_cold,
+        has_pairs: false
+      },
+    ]
   end
 
   def most_hot

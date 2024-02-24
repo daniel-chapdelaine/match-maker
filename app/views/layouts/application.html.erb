@@ -20,12 +20,33 @@
 
   <body>
 
-    <div class="title">
-      <%= image_tag('matchmaker.png', height: '150', width: '150') %>
-      <h1>Match Maker Poggers' Match Maker: the Ferafication</h1>
+    <div class="header">
+
+      <div class="title">
+        <%= image_tag('matchmaker.png', height: '150', width: '150') %>
+        <h1>Match Maker Poggers' Match Maker: the Ferafication</h1>
+      </div>
+
+      <div>
+        <% if current_page?(:controller => 'superlatives', :action => 'submit') %>
+          <%= link_to "Match Maker", root_path %>
+        <% else %> 
+          <%= link_to "Superlatives", superlatives_path %>
+        <% end %> 
+      </div>
     </div>
-    <div style="height:93vh;display:flex;padding: 32px 0 0 32px;overflow:auto;">
-      <%= yield %>
-    </div>
+
+    <% if current_page?(:controller => 'superlatives', :action => 'submit') %>
+        <%= render partial: '/shared/superlatives_search' %>
+    <% end %>
+
+    <% if current_page?(:controller => 'superlatives', :action => 'submit') %>
+      <div style="height:84vh;display:flex;padding: 32px 0 0 32px;overflow:auto;">
+    <% else %> 
+      <div style="height:93vh;display:flex;padding: 32px 0 0 32px;overflow:auto;">
+    <% end %> 
+        <%= yield %>
+      </div>
+
   </body>
 </html>

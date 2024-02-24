@@ -13,16 +13,16 @@
             <% end %>
           </div>
           <div class="checkbox">
-            <%= form.label :include_pcs, "Include player characters?" %>
             <%= form.check_box :include_pcs,  :checked => @include_pcs %>
+            <%= form.label :include_pcs, "Include player characters?" %>
           </div>
           <div class="checkbox">
-            <%= form.label :include_people, "Include people?" %>
             <%= form.check_box :include_people,  :checked => @include_people %>
+            <%= form.label :include_people, "Include people?" %>
           </div>
           <div class="checkbox">
-            <%= form.label :include_extended_sections, "Include extended sections?" %>
             <%= form.check_box :include_extended_sections,  :checked => @include_extended_sections %>
+            <%= form.label :include_extended_sections, "Include extended sections?" %>
           </div>
         </div>
 
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <%= button_to "♫ Match maker, match maker...", action: "submit" %>
+      <%= button_to "♫ Match maker, match maker...", {action: "submit" }, { class: "search_button" } %>
     </div>
 
   </div>
