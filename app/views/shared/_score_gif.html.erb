@@ -1,0 +1,17 @@
+<div style="position:relative;font-size:20px;font-weight:700;">
+  <span class="total-score">Total score: </span>
+  <% if is_hot %>
+    <span class="gif fire"></span>
+  <% elsif is_warm %>
+    <span class="gif frog"></span>
+  <% elsif is_cold %>
+    <span class="gif cold"></span>
+  <% else %>
+    <span class="gif trophy"></span>
+  <% end %>
+  <% if score == -1 || score == 1 || score == 11 %>
+    <span class="slender score"><%= score %></span>
+  <% else %>
+    <span class="score"><%= score %></span>
+  <% end %>
+</div>

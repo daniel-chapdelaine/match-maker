@@ -1,0 +1,46 @@
+<div class="supes-list-container">
+  <% list.each do |score_card| %>
+
+    <% if superlative[:has_pairs] %>
+      <div class="card supes-pair"> 
+
+        <div  style="display:flex;gap:12px"> 
+          <div class="supes-selfie"> 
+            <%= render partial: '/shared/selfie', locals: { name: score_card[:pair][0] } %>
+          </div>
+          <div class="supes-selfie"> 
+            <%= render partial: '/shared/selfie', locals: { name: score_card[:pair][1] } %>
+          </div>
+        </div>
+
+        <div style="min-height:20px;width:100%;position:relative;">
+          <div style="width:33%;position:absolute;bottom:-20px;right:0">
+            <%= render partial: '/shared/score_gif', locals: {  
+              is_hot: superlative[:is_hot],
+              is_warm: superlative[:is_warm],
+              is_cold: superlative[:is_cold],
+              score: score_card[:score],
+            } %>
+          </div>
+        </div>
+
+      </div>
+    <% else %>
+      <div class="card supes-selfie"> 
+        <%= render partial: '/shared/selfie', locals: { name: score_card[:name] } %>
+        <div style="min-height:20px;width:100%;position:relative;">
+          <div style="width:90%;position:absolute;bottom:-10px;right:0">
+            <%= render partial: '/shared/score_gif', locals: {  
+              is_hot: superlative[:is_hot],
+              is_warm: superlative[:is_warm],
+              is_cold: superlative[:is_cold],
+              score: score_card[:score],
+            } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+
+  <% end %>
+</div>

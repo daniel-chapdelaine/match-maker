@@ -1,7 +1,36 @@
 
 
-<div>
+<div class="page-container">
+
   <% @superlatives.each do |superlative| %>
-    <%= superlative[:title] %>
+    <div class="supes-title-container">
+      <div class="supes-title card"> 
+        <div style="display:flex;justify-content:space-between;"> 
+          <div>
+            <%= image_tag('cupid-left.png', height: '45', width: '45') %>
+          </div>
+
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <span style="font-size:32px;text-decoration:underline" ><%= superlative[:title] %></span>
+            <span style="font-size:22px;text-align:center;"><%= superlative[:description] %></span>
+          </div>
+
+          <div>
+            <%= image_tag('cupid-right.png', height: '45', width: '45') %>
+          </div>
+        </div>
+
+      </div>
+
+      <span style="font-size:32px;text-decoration:underline" > First Place! </span>
+      <%= render partial: '/shared/superlative_list', locals: { list: superlative[:winners], superlative: superlative} %>
+      
+      <span style="font-size:32px;text-decoration:underline" > Runners Up! </span>
+      <%= render partial: '/shared/superlative_list', locals: { list: superlative[:runnersup] , superlative: superlative} %>
+
+    </div>
   <% end %>
+
+  <%= render partial: '/shared/bottom_spacer' %>
+
 </div

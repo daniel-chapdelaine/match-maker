@@ -1,5 +1,5 @@
 
-<div id="options" data-controller="visibility" class="matches-container">
+<div id="options" data-controller="visibility" class="page-container">
   <% @matches.each_with_index do |match, index| %>
     <div class="match card">
       <div class="match-title">
@@ -14,7 +14,7 @@
             }, 
             action: "submit" %>
          </div>
-        <% if match[:is_best_match] %>
+        <% if match[:is_best] %>
           <div class="match-best"> 
             <%= image_tag('cupid-left.png', height: '30', width: '30') %>
             <div> Best Match! </div>
@@ -28,25 +28,16 @@
               Show/Hide Details
           </a>
         <% end %>
-        <div style="position:relative">
-          <span class="total-score">Total score: </span>
-          <% if match[:is_hot] %>
-            <span class="gif fire"></span>
-          <% elsif match[:is_warm] %>
-            <span class="gif frog"></span>
-          <% else %>
-            <span class="gif cold"></span>
-          <% end %>
-          <% if match[:score] == -1 || match[:score] == 1 || match[:score] == 11 %>
-            <span class="slender score"><%= match[:score] %></span>
-          <% else %>
-            <span class="score"><%= match[:score] %></span>
-         <% end %>
-          
-        </div>
+
+        <%= render partial: '/shared/score_gif', locals: {  
+          is_hot: match[:is_hot],
+          is_warm: match[:is_warm],
+          is_cold: match[:is_cold],
+          score: match[:score] 
+        } %>
       </div>
 
-      <% if match[:is_best_match] %>
+      <% if match[:is_best] %>
         <div class="match-contents">
           <%= render partial: '/shared/match_content', locals: { match: match } %>
         </div>
@@ -59,5 +50,6 @@
     </div>
   <% end %>
   
-  <div style="min-height:12px;color:transparent;">this div allows last cardbottom shadow to show</div>
+  <%= render partial: '/shared/bottom_spacer' %>
+
 </div>

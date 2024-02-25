@@ -40,75 +40,116 @@ class Superlatives
 
   def final 
     [
-      {
-        title: 'Highest points scored for one match',
-        score_cards: highest_points_scored,
-        has_pairs: true
-      },
-      {
-        title: 'Lowest points scored for one match',
-        score_cards: lowest_points_scored,
-        has_pairs: true
-      },
-      {
-        title: 'Most firsts across all matches',
-        score_cards: most_firsts,
-        has_pairs: false
-      },
-      {
-        title: 'Most last across all matches',
-        score_cards: most_lasts,
-        has_pairs: false
-      },
-      {
-        title: 'Most hots across all matches',
-        score_cards: most_hot,
-        has_pairs: false
-      },
-      {
-        title: 'Most warms across all matches',
-        score_cards: most_warm,
-        has_pairs: false
-      },
-      {
-        title: 'Most colds across all matches',
-        score_cards: most_cold,
-        has_pairs: false
-      },
+      highest_points_scored,
+      lowest_points_scored,
+      most_firsts,
+      most_lasts,
+      most_hot,
+      most_warm,
+      most_cold,
     ]
   end
 
   def most_hot
-    most_matches(@is_hot)
+    winners, runnersup = most_matches(@is_hot).partition { |x| x[:winner] }
+    {
+      title: 'Ace of Fire',
+      description: 'Most times someone scored above 15 points or receieved "Best Match".',
+      winners: winners,
+      runnersup: runnersup,
+      has_pairs: false,
+      is_hot: true,
+      is_warm: false,
+      is_cold: false
+    }
   end
 
   def most_warm
-    most_matches(@is_warm)
+    winners, runnersup = most_matches(@is_warm).partition { |x| x[:winner] }
+    {
+      title: 'Ace of Frogs',
+      description: 'Most times someone scored above 5 but less than 15 points.',
+      winners: winners,
+      runnersup: runnersup,
+      has_pairs: false,
+      is_hot: false,
+      is_warm: true,
+      is_cold: false
+    }
   end
 
   def most_cold
-    most_matches(@is_cold)
+    winners, runnersup = most_matches(@is_cold).partition { |x| x[:winner] }
+    {
+      title: 'Ace of Frost',
+      description: 'Most times someone scored below 5 points.',
+      winners: winners,
+      runnersup: runnersup,
+      has_pairs: false,
+      is_hot: false,
+      is_warm: false,
+      is_cold: true
+    }
   end
 
   def most_firsts
-    most_matches(@is_best)
+    winners, runnersup = most_matches(@is_best).partition { |x| x[:winner] }
+    {
+        title: 'Queen of Hearts',
+        description: 'Most times someone scored "Best Match".',
+        winners: winners,
+        runnersup: runnersup,
+        has_pairs: false,
+        is_hot: false,
+        is_warm: false,
+        is_cold: false
+      }
   end
 
   def most_lasts
-    most_matches(@is_worst)
+    winners, runnersup = most_matches(@is_worst).partition { |x| x[:winner] }
+    {
+      title: 'Joker',
+      description: 'Most times someone scored "Worst Match".',
+      winners: winners,
+      runnersup: runnersup,
+      has_pairs: false,
+      is_hot: false,
+      is_warm: false,
+      is_cold: false
+    }
   end
 
   def highest_points_scored 
     top_two_scores = get_top_two_cards(@is_best)
-    dedup(top_two_scores)
+    winners, runnersup = dedup(top_two_scores).partition { |x| x[:winner] }
+    {
+      title: 'Royal Flush',
+      description: 'Highest points accumulated between two individuals.',
+      winners: winners,
+      runnersup: runnersup,
+      has_pairs: true,
+      is_hot: false,
+      is_warm: false,
+      is_cold: false
+    }
   end
 
   def lowest_points_scored 
     top_two_scores = get_top_two_cards(@is_worst)
-    dedup(top_two_scores)
+    winners, runnersup = dedup(top_two_scores).partition { |x| x[:winner] }
+    {
+      title: 'Bookends',
+      description: 'Lowest points accumulated between two individuals.',
+      winners: winners,
+      runnersup: runnersup,
+      has_pairs: true,
+      is_hot: false,
+      is_warm: false,
+      is_cold: false
+    }
   end
 
-  
   def most_matches(list)
     scores = {}
     list.each do |item| 
@@ -161,9 +202,8 @@ class Superlatives
     second = scores.second
     top_two = []
     ranked.each do |rank| 
-      if rank[:score] == first || rank[:score] == second
-        top_two << rank 
-      end
+      rank[:winner] = true if rank[:score] == first
+      top_two << rank if rank[:score] == first || rank[:score] == second
     end
     return top_two
   end 
@@ -177,7 +217,8 @@ class Superlatives
       name: name,
       match: match[:name], 
       pair: [ name, match[:name] ],
-      score: match[:score]
+      score: match[:score],
+      winner: false
     }
   end
 

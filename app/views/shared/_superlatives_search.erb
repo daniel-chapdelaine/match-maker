@@ -1,5 +1,5 @@
 <%= form_with url: "/superlatives#submit", method: :get do |form| %>
-  <div class="superlatives-header" style="height:9vh">
+  <div class="supes-header" style="height:9vh">
 
     <div class="checkbox">
       <%= form.check_box :include_pcs,  :checked => @include_pcs %>
@@ -14,8 +14,11 @@
       <%= form.label :include_extended_sections, "Include extended sections?" %>
     </div>
 
-    <div style="margin-left:24px">
-      <%= button_to "And the winners are...", {controller: "superlatives", action: "submit" }, { class: "superlative_search_button"} %>
-    </div>
+    <%= button_tag( :class => "supes_search_button", :controller => "superlatives", :action => "submit") do %>
+      <div class="supes_search_button_text">
+        And the winners are...
+      </div>
+      <div class="supes_search_button_plane"></div>
+    <% end %>
   </div>
 <% end %>

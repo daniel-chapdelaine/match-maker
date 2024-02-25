@@ -29,9 +29,9 @@
 
       <div>
         <% if current_page?(:controller => 'superlatives', :action => 'submit') %>
-          <%= link_to "Match Maker", root_path %>
+          <%= link_to "< Match Maker", root_path %>
         <% else %> 
-          <%= link_to "Superlatives", superlatives_path %>
+          <%= link_to "Superlatives >", superlatives_path %>
         <% end %> 
       </div>
     </div>
@@ -41,9 +41,9 @@
     <% end %>
 
     <% if current_page?(:controller => 'superlatives', :action => 'submit') %>
-      <div style="height:84vh;display:flex;padding: 32px 0 0 32px;overflow:auto;">
+      <div class="main-container" style="height:84vh;">
     <% else %> 
-      <div style="height:93vh;display:flex;padding: 32px 0 0 32px;overflow:auto;">
+      <div class="main-container" style="height:93vh">
     <% end %> 
         <%= yield %>
       </div>

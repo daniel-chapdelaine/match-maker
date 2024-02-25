@@ -5,21 +5,27 @@
 @layer components {
 
   body {
-      font-family: "Architects Daughter", cursive;
-      font-weight: 400;
-      font-style: normal;
-      overflow: hidden;
-      height: 100%;
-      box-sizing: border-box;
-      margin: 0;
-      background-color: #e7d6db;
-      scrollbar-color: #460d29 #e7d6db;
+    font-family: "Architects Daughter", cursive;
+    font-weight: 400;
+    font-style: normal;
+    overflow: hidden;
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #e7d6db;
+    scrollbar-color: #460d29 #e7d6db;
+  }
+  
+  .main-container {
+    display:flex;
+    padding: 32px 0 0 32px;
+    overflow:auto;
   }
   
   .header {
     height: 7vh;
-    color: white;
-    box-shadow: 10px 5px 5px grey;
+    color: #f9f9f9;
+    box-shadow: 0px 5px 5px grey;
     position: relative;
     z-index: 5px;
     display: flex;
@@ -53,7 +59,7 @@
 
   .search_button {
     background: linear-gradient(to right, #460d29 0%, #883249 100%) !important;
-    color: white !important;
+    color: #f9f9f9 !important;
   }
   
   button {
@@ -70,7 +76,7 @@
   button:hover,
   button:focus { 
     transform: scale(1.03);
-    transition:transform 1s ease;
+    transition:transform 1s ease-out;
   } 
   
   .checkbox {
@@ -97,29 +103,29 @@
   }
 
   .card {
-    background-color: white;
+    background-color: #f9f9f9;
     padding: 24px;
     border-radius: 4px;
-    box-shadow: 10px 5px 5px grey;
+    box-shadow: 4px 5px 5px grey;
+    max-width: 750px;
+    width: 100%;
+    margin-bottom: 24px;
   }
 
-  .matches-container {
+  .page-container {
     width:100%;
     margin-right:32px;
     display:flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   }
 
   .match {
     display: flex;
     flex-direction: column;
-    gap: 16px;
     font-size: 18px;
-    margin-bottom: 24px;
-    width: 100%;
     max-height: 400px;
-    max-width: 750px 
   }
 
   .match-title {
@@ -156,7 +162,8 @@
   }
 
   a {
-    display:block
+    display:block;
+    text-decoration: underline !important;
   }
  
   a:hover { 
@@ -172,8 +179,18 @@
 
   .warning { 
     color: #883249;
-    margin-left: 55px
+    margin-left: 25px
   } 
+  .warning { 
+    animation: shaking 0.4s infinite !important;
+  } 
+  @keyframes shaking {
+     0% {transform: rotate(0deg);}
+     20% {transform: rotate(-4deg);}
+     50% {transform: rotate(0deg);}
+     70% {transform: rotate(4deg);}
+     100% {transform: rotate(0deg);}
+  }
 
   .gif { 
     display: inline-flex;
@@ -212,6 +229,16 @@
     height: 55px;
     min-width: 55px;
     min-height: 55px;
+  } 
+
+  .trophy { 
+    background-image: url("trophy.gif");
+    top: -13px;
+    right: -21px;
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    min-height: 65px;
   } 
   
   .score { 
@@ -278,17 +305,17 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid black !important;
-    background-color: white;
+    background-color: #f9f9f9;
     position: sticky;
     top: 0;
     z-index: 3;
   }
 
 
-  .superlatives-header {
-    background-color: white;
+  .supes-header {
+    background-color: #f9f9f9;
     width: 100%;
-    box-shadow: 10px 5px 5px grey;
+    box-shadow: 0px 5px 5px grey;
     z-index: 4px;
     display: flex;
     justify-content: center;
@@ -296,11 +323,69 @@
     gap: 24px;
   }
 
-  .superlative_search_button {
-    border: 2px solid #883249 !important; 
+  .supes_search_button_plane {
+    background-image: url(paperplane.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    top: -9px;
+    left: -5px;    
+    min-width: inherit;
+    min-height: inherit;
+    z-index: 8;
   }
 
 
+  .supes_search_button_text {
+    position: relative;
+    z-index: 10;
+    background-color: transparent;
+  }
+  
+  .supes_search_button {
+    background-color: transparent;
+    box-shadow: none !important;
+    position: relative !important;
+    min-width: 90px !important;
+    min-height: 45px !important;
+    font-size: 11px !important;
+    display: flex !important;
+    justify-content: end !important;
+    align-items: end !important;
+  }
+
+  .supes-title-container {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom: 180px;
+  }
+
+  .supes-title {
+    margin-bottom: 24px;
+    background-color: #f9f9f9;
+  }
+
+  .supes-list-container {
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width: 1200px;
+  }
+
+  .supes-selfie {
+    max-width:250px;
+    max-height:285px;
+    width:250px;
+    height:285px
+  }
+
+  .supes-pair {
+    max-width:560px;
+  }
+
+  
 }
 
 
